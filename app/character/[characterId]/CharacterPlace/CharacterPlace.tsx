@@ -1,5 +1,3 @@
-import { FC } from "react";
-
 import styles from "./CharacterPlace.module.css";
 import ReactCountryFlag from "react-country-flag";
 
@@ -12,10 +10,7 @@ export type CharacterPlaceProps = {
   location: string;
 };
 
-export const CharacterPlace: FC<CharacterPlaceProps> = ({
-  countryCode,
-  location,
-}) => {
+export function CharacterPlace({ countryCode, location }: CharacterPlaceProps) {
   return (
     <article className={styles.addressContainer}>
       <figure className={styles.countryBrief}>
@@ -27,4 +22,4 @@ export const CharacterPlace: FC<CharacterPlaceProps> = ({
       <div className={styles.addressBody}>{location}</div>
     </article>
   );
-};
+}
