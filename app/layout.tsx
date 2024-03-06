@@ -18,20 +18,6 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <div>{children}</div>
-        <nav>
-          <ul>
-            <li>
-              <a>
-                <button>Main</button>
-              </a>
-            </li>
-            <li>
-              <a>
-                <button>Search</button>
-              </a>
-            </li>
-          </ul>
-        </nav>
       </body>
     </html>
   );
