@@ -8,10 +8,12 @@
     "start": "next start",
     "lint": "next lint",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "migrate:local": "dotenv -e .env.local -- pnpx prisma migrate dev --name init"
   },
   "dependencies": {
     "@nextui-org/react": "^2.2.10",
+    "@prisma/client": "^5.10.2",
     "clsx": "^2.1.0",
     "framer-motion": "^11.0.8",
     "i18n-iso-countries": "^7.10.0",
@@ -37,6 +39,8 @@
     "eslint": "^8",
     "eslint-config-next": "14.1.0",
     "postcss": "^8.4.35",
+    "dotenv-cli": "^7.4.0",
+    "prisma": "^5.10.2",
     "storybook": "^7.6.17",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
