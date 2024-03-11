@@ -13,8 +13,119 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
+model UniqueDenpamenNF {
+  id          Int                          @id
+  growths     GrowthSnapshotNF[]
+  individuals PlayerIndividualDenpamenNF[]
+
+  generation Int
+
+  baseColor   BodyColor @relation(fields: [bodyColorId], references: [id])
+  bodyColorId Int
+
+  additionalColor UniqueDenpamenAdditionalColorNF?
+
+  antenna   Antenna @relation(fields: [antennaId], references: [id])
+  antennaId Int
+}
+
+model Antenna {
+  id               Int                @id @default(autoincrement())
+  i18nKey          String             @unique
+  UniqueDenpamenNF UniqueDenpamenNF[]
+}
+
+model UserAccount {
+  id          Int          @id @default(autoincrement())
+  createdAt   DateTime     @default(now())
+  UserProfile UserProfile?
+}
+
+model UserProfile {
+  id Int @id @default(autoincrement())
+
+  UserAccount   UserAccount @relation(fields: [userAccountId], references: [id])
+  userAccountId Int         @unique
+
+  playersNF PlayerProfileNF[]
+
+  avater_url   String
+  username     String @unique
+  display_name String
+}
+
+model PlayerProfileNF {
+  id Int @id @default(autoincrement())
+
+  UserProfile   UserProfile @relation(fields: [userProfileId], references: [id])
+  userProfileId Int
+
+  individuals PlayerIndividualDenpamenNF[]
+
+  playername String
+
+  @@unique([userProfileId, playername])
+}
+
+model PlayerIndividualDenpamenNF {
+  id Int @id @default(autoincrement())
+
+  UniqueDenpamenNF   UniqueDenpamenNF @relation(fields: [uniqueDenpamenNFId], references: [id])
+  uniqueDenpamenNFId Int
+
+  author   PlayerProfileNF @relation(fields: [authorId], references: [id])
+  authorId Int
+
+  snapshots       GrowthSnapshotNF[] @relation("snapshot:all")
+  pinningSnapshot GrowthSnapshotNF?  @relation("snapshot:pin")
+}
+
+model UniqueDenpamenAdditionalColorNF {
+  id Int @id @default(autoincrement())
+
+  pattern       BodyPattern @relation(fields: [bodyPatternId], references: [id])
+  bodyPatternId Int
+
+  color       BodyColor @relation(fields: [bodyColorId], references: [id])
+  bodyColorId Int
+
+  uniqueDenpamen   UniqueDenpamenNF @relation(fields: [uniqueDenpamenId], references: [id])
+  uniqueDenpamenId Int              @unique
+}
+
+model BodyColor {
+  id      Int    @id @default(autoincrement())
+  i18nKey String @unique
+
+  UniqueDenpamenNF                UniqueDenpamenNF[]
+  UniqueDenpamenAdditionalColorNF UniqueDenpamenAdditionalColorNF[]
+}
+
+model BodyPattern {
+  id      Int    @id @default(autoincrement())
+  i18nKey String @unique
+
+  UniqueDenpamenAdditionalColorNF UniqueDenpamenAdditionalColorNF[]
+}
+
+model GrowthSnapshotNF {
+  id Int @id @default(autoincrement())
+
+  level Int
+
+  hp      Int
+  ap      Int
+  attack  Int
+  defence Int
+  speed   Int
+
+  playerIndividualDenpamenNFId Int                        @unique
+  // 同じ PlayerIndividualDenpamenNF::id に対して relation を作るには、各 relation を map 引数で区別する必要がある
+  PlayerIndividualDenpamenNF   PlayerIndividualDenpamenNF @relation("snapshot:all", fields: [playerIndividualDenpamenNFId], references: [id], map: "all")
+  pinTargetIndividual          PlayerIndividualDenpamenNF @relation("snapshot:pin", fields: [playerIndividualDenpamenNFId], references: [id], map: "pin")
+
+  UniqueDenpamenNF   UniqueDenpamenNF @relation(fields: [uniqueDenpamenNFId], references: [id])
+  uniqueDenpamenNFId Int
+
+  @@unique([level, playerIndividualDenpamenNFId])
 }
