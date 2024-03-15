@@ -13,7 +13,10 @@
     "tcm": "tcm -p 'app/**/*.module.css'"
   },
   "dependencies": {
-    "@nextui-org/react": "^2.2.10",
+    "@chakra-ui/next-js": "^2.2.0",
+    "@chakra-ui/react": "^2.8.2",
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.0",
     "@prisma/client": "^5.10.2",
     "clsx": "^2.1.0",
     "framer-motion": "^11.0.8",
