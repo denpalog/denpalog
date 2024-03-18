@@ -10,7 +10,8 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "migrate:local": "dotenv -e .env.local -- pnpx prisma migrate dev",
-    "tcm": "tcm -p 'app/**/*.module.css'"
+    "tcm": "tcm -p 'app/**/*.module.css'",
+    "chromatic": "dotenv -e .env.local -- chromatic --project-token=$CHROMATIC_PROJECT_TOKEN"
   },
   "dependencies": {
     "@chakra-ui/next-js": "^2.2.0",
@@ -43,6 +44,7 @@
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.4.17",
+    "chromatic": "^11.0.8",
     "dotenv-cli": "^7.4.0",
     "eslint": "^8",
     "eslint-config-next": "14.1.0",
