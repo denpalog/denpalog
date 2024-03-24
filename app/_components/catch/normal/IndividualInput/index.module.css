@@ -1,0 +1,26 @@
+.mainSpace {
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.heading {
+  font-size: 1.25rem;
+  font-weight: 500;
+  font-family: "Noto Sans JP";
+  color: #333;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.primary {
+  font-size: 1rem;
+  font-weight: 500;
+  font-family: "Noto Sans JP";
+  color: #333;
+}
